@@ -11,7 +11,7 @@ public class Application {
 
     public static void main(String[] args) throws InterruptedException {
         UserService userService = ProxyUtil.getRemoteProxyInstance(UserService.class, new InetSocketAddress("localhost", 8888));
-        User user = userService.getUserById("12");
+        User user = userService.getUserByName("13");
         System.out.println(user);
         TimeUnit.SECONDS.sleep(2);
     }
