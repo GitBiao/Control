@@ -1,4 +1,4 @@
-package cn.mingyuan.rpc.client;
+package cn.mingyuan.core;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,7 +8,6 @@ import java.net.Socket;
 
 
 public class ProxyUtil {
-
     public static <T> T getRemoteProxyInstance(Class<T> serviceInterface, InetSocketAddress address){
         return (T) Proxy.newProxyInstance(serviceInterface.getClassLoader(),new Class<?>[]{serviceInterface},((proxy,method,args) ->{
             try (Socket socket = new Socket()){

@@ -1,4 +1,4 @@
-package cn.mingyuan.rpc.core;
+package cn.mingyuan.core;
 
 public interface Registry {
 

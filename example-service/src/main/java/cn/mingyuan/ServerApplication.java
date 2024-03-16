@@ -1,9 +1,10 @@
-package cn.mingyuan.rpc;
+package cn.mingyuan;
 
-import cn.mingyuan.rpc.core.Registry;
-import cn.mingyuan.rpc.core.RegistryCenter;
+import cn.mingyuan.core.Registry;
+import cn.mingyuan.core.RegistryCenter;
 import cn.mingyuan.rpc.api.UserService;
-import cn.mingyuan.rpc.service.UserServiceImpl;
+import cn.mingyuan.service.UserServiceImpl;
+
 
 public class ServerApplication {
 
