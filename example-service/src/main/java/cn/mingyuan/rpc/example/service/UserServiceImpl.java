@@ -1,8 +1,8 @@
-package cn.mingyuan.service;
+package cn.mingyuan.rpc.example.service;
 
 
-import cn.mingyuan.rpc.api.User;
-import cn.mingyuan.rpc.api.UserService;
+import cn.mingyuan.rpc.example.api.User;
+import cn.mingyuan.rpc.example.api.UserService;
 
 public class UserServiceImpl implements UserService {
     @Override

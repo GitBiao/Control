@@ -1,4 +1,4 @@
-package cn.mingyuan.rpc.api;
+package cn.mingyuan.rpc.example.api;
 
 import java.io.Serializable;
 

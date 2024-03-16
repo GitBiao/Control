@@ -1,4 +1,4 @@
-package cn.mingyuan.core;
+package cn.mingyuan.rpc.core;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
