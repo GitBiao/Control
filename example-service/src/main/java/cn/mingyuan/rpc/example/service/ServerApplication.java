@@ -5,6 +5,7 @@ import cn.mingyuan.rpc.core.RegistryCenter;
 import cn.mingyuan.rpc.example.api.UserService;
 
 
+
 public class ServerApplication {
 
     private static final Registry registry = new RegistryCenter(8888);
