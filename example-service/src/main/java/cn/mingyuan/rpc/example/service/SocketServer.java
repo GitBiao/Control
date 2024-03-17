@@ -1,52 +1,37 @@
-package cn.mingyuan.rpc.core;
+package cn.mingyuan.rpc.example.service;
 
+import cn.mingyuan.rpc.core.ServiceMapper;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class RegistryCenter implements Registry{
+@Component
+public class SocketServer {
+
+    @Resource
+    private ServiceMapper registry;
+
+    private ServerSocket serverSocket ;
 
     private ExecutorService executor =
             Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    private static Map<String,Class> serviceRegistry = new HashMap<>();
-
-    private int port;
-
-    private ServerSocket serverSocket;
-
-    public RegistryCenter(int port){
-        this.port = port;
-    }
-
-    @Override
-    public void stop() {
-        this.executor.shutdown();
-        if(this.serverSocket != null){
-            try {
-                this.serverSocket.close();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
     public void start() {
         try {
-            this.serverSocket = new ServerSocket(this.port);
+            this.serverSocket = new ServerSocket(8888);
 
             System.out.println("Registry Center Start...");
 
             while (true){
-                this.executor.execute(new ServiceTask(this.serverSocket.accept()));
+                this.executor.execute(new ServiceTask(this.serverSocket.accept(),registry));
             }
 
         }catch (IOException e){
@@ -60,17 +45,14 @@ public class RegistryCenter implements Registry{
         }
     }
 
-    @Override
-    public void register(Class<?> serviceInterface, Class<?> impl) {
-        this.serviceRegistry.put(serviceInterface.getName(),impl);
-    }
-
     static class ServiceTask implements Runnable{
 
         private Socket socket;
+        private ServiceMapper registry;
 
-        public ServiceTask(Socket socket){
+        public ServiceTask(Socket socket, ServiceMapper registry){
             this.socket = socket;
+            this.registry =registry;
         }
 
         @Override
@@ -80,7 +62,7 @@ public class RegistryCenter implements Registry{
                 String methodName = input.readUTF();
                 Class<?>[] paramTypes = (Class<?>[]) input.readObject();
                 Object[] arguements = (Object[]) input.readObject();
-                Class<?> serviceClass = serviceRegistry.get(serviceName);
+                Class<?> serviceClass = registry.getRegisterClass(serviceName);
                 if(serviceClass == null){
                     throw new ClassNotFoundException(serviceName + "not found.");
                 }
@@ -99,4 +81,6 @@ public class RegistryCenter implements Registry{
             }
         }
     }
+
+
 }

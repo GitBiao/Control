@@ -1,18 +1,15 @@
 package cn.mingyuan.rpc.example.service;
 
-import cn.mingyuan.rpc.core.Registry;
-import cn.mingyuan.rpc.core.RegistryCenter;
-import cn.mingyuan.rpc.example.api.UserService;
 
+import cn.mingyuan.rpc.core.annotation.RPCScan;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-
+@RPCScan(basePackage = {"cn.mingyuan"})
 public class ServerApplication {
-
-    private static final Registry registry = new RegistryCenter(8888);
-
     public static void main(String[] args) {
-        registry.register(UserService.class, UserServiceImpl.class);
-        new Thread(registry::start,"server").start();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ServerApplication.class);
+        SocketServer socketServer = applicationContext.getBean(SocketServer.class);
+        new Thread(socketServer::start,"server").start();
     }
 
 
