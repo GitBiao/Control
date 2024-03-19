@@ -10,8 +10,7 @@ public class TestService {
     @RpcReference()
     private UserService userService;
 
-
-    public void test() throws InterruptedException {
+    public void test() {
         User hello = this.userService.getUserById("111");
         System.out.println(hello);
         for (int i = 0; i < 10; i++) {

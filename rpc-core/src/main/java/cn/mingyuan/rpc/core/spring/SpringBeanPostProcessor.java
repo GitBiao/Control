@@ -6,6 +6,8 @@ import cn.mingyuan.rpc.core.ServiceMapperImpl;
 import cn.mingyuan.rpc.core.annotation.RPCService;
 import cn.mingyuan.rpc.core.annotation.RpcReference;
 import cn.mingyuan.rpc.core.factory.SingletonFactory;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import lombok.SneakyThrows;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -31,6 +33,24 @@ public class SpringBeanPostProcessor  implements BeanPostProcessor {
             RPCService rpcService = bean.getClass().getAnnotation(RPCService.class);
             // build RpcServiceProperties
             for(Class<?> c : bean.getClass().getInterfaces()){
+
+//                for (Method method : c.getMethods()) {
+//                    new ProviderMeta(method.getName(), bean, c.getCanonicalName());
+//                }
+//
+//                Map<String, ProviderMeta> map = new HashMap<>();
+//                {
+//                    String methodSign;
+//                    // methodName!3_java.lang.String_java.lang.Integer
+//
+//                    Object bean;
+//                    String serviceName;
+//                    Object[] args;
+//                    Class<?> parameterTyps;
+//                }
+//
+//                key : interface;
+
                 registry.register(c,bean.getClass());
             }
         }

@@ -1,10 +1,10 @@
 package cn.mingyuan.rpc.example.service;
 
 
-import cn.mingyuan.rpc.core.annotation.RPCScan;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
-@RPCScan(basePackage = {"cn.mingyuan"})
+@ComponentScan( {"cn.mingyuan"})
 public class ServerApplication {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ServerApplication.class);
