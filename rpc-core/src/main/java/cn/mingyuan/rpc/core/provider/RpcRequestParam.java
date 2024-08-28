@@ -1,4 +1,4 @@
-package cn.mingyuan.rpc.http.dto;
+package cn.mingyuan.rpc.core.provider;
 
 import lombok.Data;
 
